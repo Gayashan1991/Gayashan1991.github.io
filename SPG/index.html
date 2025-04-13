@@ -78,6 +78,14 @@
       <option>group of people</option>
       <option>flower</option>
       <option>person with disability</option>
+      <option>tree</option>
+      <option>sunrise</option>
+      <option>mountain</option>
+      <option>animal</option>
+      <option>family</option>
+      <option>healthcare worker</option>
+      <option>schoolgirl</option>
+      <option>volunteer</option>
     </select>
 
     <label for="location">Setting/Location</label>
@@ -150,6 +158,8 @@
   </div>
 
   <script>
+    const lifelessSubjects = ['flower', 'tree', 'sunrise', 'mountain'];
+
     function generatePrompt() {
       const subject = document.getElementById('subject').value;
       const location = document.getElementById('location').value;
@@ -160,7 +170,14 @@
       const theme = document.getElementById('theme').value;
       const style = document.getElementById('style').value;
 
-      const prompt = `A ${subject} in/on/at ${location}, ${action}, surrounded by ${details}. Lighting is ${lighting}, with color tones that evoke ${emotion}. Symbolizes ${theme}. Style: ${style}.`;
+      let article = ['a', 'e', 'i', 'o', 'u'].includes(subject[0].toLowerCase()) ? 'An' : 'A';
+      let prompt = `${article} ${subject} in/on/at ${location}, `;
+
+      if (!lifelessSubjects.includes(subject)) {
+        prompt += `${action}, `;
+      }
+      prompt += `surrounded by ${details}. Lighting is ${lighting}, with color tones that evoke ${emotion}. Symbolizes ${theme}. Style: ${style}.`;
+
       document.getElementById('output').value = prompt;
     }
 
