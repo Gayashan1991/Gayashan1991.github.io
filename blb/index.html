@@ -81,7 +81,7 @@
 
   <div id="itemsContainer"></div>
 
-  <div id="totalLabel">Total: $0.00</div>
+  <div id="totalLabel">Total: LKR 0.00</div>
 
   <script>
     function updateDateTime() {
@@ -101,7 +101,7 @@
           total += value;
         }
       });
-      document.getElementById('totalLabel').textContent = `Total: $${total.toFixed(2)}`;
+      document.getElementById('totalLabel').textContent = `Total: LKR ${total.toFixed(2)}`;
     }
 
     function addItemRow() {
