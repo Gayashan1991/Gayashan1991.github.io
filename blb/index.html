@@ -152,7 +152,7 @@
 
   const filename = `Bill_${customerName.replace(/\s+/g, '_')}_${Date.now()}.txt`;
 
-  const response = await fetch("https://script.google.com/macros/s/AKfycbzCmKZEDGP9chEYrv5jdbj_rUlPz4SaFx8LoWeEJPazpngdnrGJZULQxi0wI8pVJLaS/exec", {
+  const response = await fetch("https://script.google.com/macros/s/AKfycbz0CNzmFoqmrfcgDnK2aRUdlSFiXERfA1XjxSOQp9ivtnqR4wjD-EVFrDEGeALoqgXXVA/exec", {
     method: "POST",
     body: JSON.stringify({
       filename: filename,
