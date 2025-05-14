@@ -127,50 +127,37 @@
       updateTotal();
     }
 
-    async function saveBill() {
-  const customerName = document.getElementById('customerName').value.trim() || 'Unknown Customer';
-  const rows = document.querySelectorAll('.item-row');
-  const totalText = document.getElementById('totalLabel').textContent;
-  const total = parseFloat(totalText.replace('Total: $', ''));
+    function saveBill() {
+      const customerName = document.getElementById('customerName').value.trim() || 'Unknown Customer';
+      const rows = document.querySelectorAll('.item-row');
+      const totalText = document.getElementById('totalLabel').textContent;
+      const total = parseFloat(totalText.replace('Total: LKR ', ''));
 
-  if (total === 0) {
-    alert("Total is empty. Cannot save bill.");
-    return;
-  }
+      if (total === 0) {
+        alert("Total is empty. Cannot save bill.");
+        return;
+      }
 
-  let billText = `Customer: ${customerName}\n`;
-  billText += `Date: ${new Date().toLocaleString()}\n\n`;
-  billText += `Items:\n`;
+      let billText = `Client Name: ${customerName}\n`;
+      billText += `Date: ${new Date().toLocaleString()}\n\n`;
+      billText += `Items:\n`;
 
-  rows.forEach((row, index) => {
-    const item = row.querySelector('.item-name').value.trim() || 'Unnamed Item';
-    const price = row.querySelector('.item-price').value.trim() || '0.00';
-    billText += `  ${index + 1}. ${item} - $${parseFloat(price).toFixed(2)}\n`;
-  });
+      rows.forEach((row, index) => {
+        const item = row.querySelector('.item-name').value.trim() || 'Unnamed Item';
+        const price = row.querySelector('.item-price').value.trim() || '0.00';
+        billText += `  ${index + 1}. ${item} - LKR ${parseFloat(price).toFixed(2)}\n`;
+      });
 
-  billText += `\n${totalText}`;
+      billText += `\n${totalText}`;
 
-  const filename = `Bill_${customerName.replace(/\s+/g, '_')}_${Date.now()}.txt`;
-
-  const response = await fetch("https://script.google.com/macros/s/AKfycbz0CNzmFoqmrfcgDnK2aRUdlSFiXERfA1XjxSOQp9ivtnqR4wjD-EVFrDEGeALoqgXXVA/exec", {
-    method: "POST",
-    body: JSON.stringify({
-      filename: filename,
-      content: billText
-    }),
-    headers: {
-      "Content-Type": "application/json"
+      const blob = new Blob([billText], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `Bill_${customerName.replace(/\s+/g, '_')}_${Date.now()}.txt`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
-  });
-
-  const result = await response.json();
-  if (result.success) {
-    alert("Bill saved to Google Drive.\n" + result.url);
-  } else {
-    alert("Failed to save: " + result.error);
-  }
-}
-
   </script>
 
 </body>
