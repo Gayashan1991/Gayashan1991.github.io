@@ -52,6 +52,16 @@
       cursor: pointer;
     }
 
+    newBill{
+      padding: 10px 15px; 
+      font-size: 1rem; 
+      background-color: #f44336; 
+      color: white; 
+      border: none; 
+      border-radius: 5px; 
+      cursor: pointer;
+    }
+
     @media (max-width: 480px) {
       .item-row {
         flex-wrap: nowrap;
@@ -70,6 +80,10 @@
   </style>
 </head>
 <body>
+
+  <button id="newBill" onclick="location.reload()">
+    New Bill
+  </button>
 
   <button id="saveButton" onclick="saveBill()">Save</button>
 
